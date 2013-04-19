@@ -3,23 +3,54 @@
 #define __UTIL_PLATFORM_H__
 
 /**
- * Platform Constants
+ * Define UTIL_PLATFORM constant
+ *
+ * UTIL_PLATFORM_UNIXLIKE
+ *   UTIL_PLATFORM_DARWIN
+ *   UTIL_PLATFORM_LINUX
+ *   UTIL_PLATFORM_BSD
+ * UTIL_PLATFORM_WINDOWS
+ * UTIL_PLATFORM_UNKNOWN
  */
-#define UTIL_PLATFORM_UNKNOWN 0
-#define UTIL_PLATFORM_DARWIN  1
-#define UTIL_PLATFORM_LINUX   2
-#define UTIL_PLATFORM_WINDOWS 3
+#if defined(__APPLE__) && defined(__MACOS__)
+#  define UTIL_PLATFORM_DARWIN
+#elif defined(__gnu_linux__)
+#  define UTIL_PLATFORM_LINUX
+#elif defined(__FreeBSD__) ||  defined(__NetBSD__) ||  defined(__OpenBSD__) ||  defined(__bsdi__) ||  defined(__DragonFly__)
+#  define UTIL_PLATFORM_BSD
+#elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
+#  define UTIL_PLATFORM_WINDOWS
+#else
+#  warning "Unknown platform"
+#  define UTIL_PLATFORM_UNKNOWN
+#endif
+
+#if defined(UTIL_PLATFORM_LINUX) || defined(UTIL_PLATFORM_DARWIN) || defined(UTIL_PLATFORM_BSD)
+#  define UTIL_PLATFORM_UNIXLIKE
+#endif
 
 /**
- * Compiler Constants
+ * Define UTIL_COMPILER constant
+ *
+ * UTIL_COMPILER_GCCLIKE
+ *   UTIL_COMPILER_CLANG
+ *   UTIL_COMPILER_GCC
+ * UTIL_COMPILER_MSVCC
+ * UTIL_COMPILER_UNKNOWN
  */
-#define UTIL_COMPILER_CLANG   1
-#define UTIL_COMPILER_GCC     2
-#define UTIL_COMPILER_MSVCC   3
+#if defined(__clang__)
+#  define UTIL_COMPILER_CLANG
+#elif defined(__GNUC__)
+#  define UTIL_COMPILER_GCC
+#elif defined(_MSC_VER)
+#  define UTIL_COMPILER_MSVCC
+#else
+#  warning unknown compiler
+#  define UTIL_COMPILER_UNKNOWN
+#endif
 
-
-/* we are running on Mac, bear with me for now.. :-p */
-#define UTIL_COMPILER UTIL_COMPILER_CLANG
-#define UTIL_PLATFORM UTIL_PLATFORM_DARWIN
+#if defined(UTIL_COMPILER_CLANG) || defined(UTIL_COMPILER_GCC)
+#  define UTIL_COMPILER_GCCLIKE
+#endif
 
 #endif

@@ -2,6 +2,8 @@
 #ifndef __UTIL_EXPORT_H__
 #define __UTIL_EXPORT_H__
 
+#include "utilplatform.h"
+
 /**
  * Export Macros
  * 
@@ -18,10 +20,22 @@
  * as a standard `api_export` if debugging is enabled and `static` othewise.
  */
 
-// TODO: this needs to be conditionally controlled through the platform macros
+#ifdef UTIL_PLATFORM_WINDOWS
+/* Windows, so use the windows import/export */
+#  define library_local 
+#  ifdef BUILDING_DLL
+#    define api_export __declspec(dllexport)
+#  else
+#    define api_export __declspec(dllimport)
+#  endif
+#elif UTIL_COMPILER_GCCLIKE
 /* clang or gcc or something like it, so use the attribute syntaxt */
-#define api_export    __attribute__((visibility("default")))
-#define library_local __attribute__((visibility("local")))
+#  define api_export    __attribute__((visibility("default")))
+#  define library_local __attribute__((visibility("hidden")))
+#else
+#  define api_export
+#  define library_local
+#endif
 
 /* Define the `debug_export` macro */
 #ifdef DEBUG
