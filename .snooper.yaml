@@ -1,0 +1,4 @@
+command: ruby test/test.rb
+base_path: .
+
+filters: \.h$ \.c test\.rb
