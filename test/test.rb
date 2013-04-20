@@ -3,7 +3,7 @@
 VERBOSE = false
 
 def make_flags(*flag_list)
-  flags = "-std=c99 -Wall -Werror -fvisibility=hidden"
+  flags = "-std=c11 -Wall -Werror -fvisibility=hidden"
   flags = "#{flags} #{flag_list.join ' '}"
 end
 
@@ -14,7 +14,8 @@ def delete_files(*paths)
 end
 
 def compile_file_with_flags(file, flags, outfile)
-  command = "clang #{flags} #{file} -o#{outfile} > /dev/null 2>&1"
+  command = "clang #{flags} #{file} -o#{outfile}"
+  command += " > /dev/null 2>&1" if not VERBOSE
   puts command if VERBOSE
   system command
 end
