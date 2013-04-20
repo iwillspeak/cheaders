@@ -20,7 +20,7 @@
  * as a standard `api_export` if debugging is enabled and `static` othewise.
  */
 
-#ifdef UTIL_PLATFORM_WINDOWS
+#if defined(UTIL_PLATFORM_WINDOWS)
 /* Windows, so use the windows import/export */
 #  define library_local 
 #  ifdef BUILDING_DLL
@@ -33,12 +33,14 @@
 #  define api_export    __attribute__((visibility("default")))
 #  define library_local __attribute__((visibility("hidden")))
 #else
+/* unknown compiler. These definitions will work but will make some symbols more
+ * visible than with a supported compiler. */
 #  define api_export
 #  define library_local
 #endif
 
 /* Define the `debug_export` macro */
-#ifdef DEBUG
+#ifdef UTIL_DEBUG
 #define debug_export  api_export
 #else
 #define debug_export  static

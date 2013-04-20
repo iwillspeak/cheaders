@@ -53,4 +53,17 @@
 #  define UTIL_COMPILER_GCCLIKE
 #endif
 
+/**
+ * Define UTIL_DEBUG constant
+ *
+ * This constant is defined if any of DEBUG, __DEBUG or __DEBUG__ are defined
+ * unless NDEBUG is also defined.
+ */
+#if defined(DEBUG) || defined(__DEBUG) || defined(__DEBUG__) || defined(_DEBUG)
+#  define UTIL_DEBUG
+#endif
+#ifdef NDEBUG
+#  undef UTIL_DEBUG
+#endif
+
 #endif
