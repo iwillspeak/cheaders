@@ -18,12 +18,11 @@ library_local int32_t bar(void)
 
 	return 1234;
 }
+
 api_export int main(int argc, char* argv[])
 {
 	static_assert(true, "True should be true");
 	static_assert_false(false, false should be false);
 	static_assert(
 		sizeof(uint64_t) == 8, "64 bit integer should be 8 bytes long");
-	
-	
 }
