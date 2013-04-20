@@ -12,7 +12,7 @@
  * UTIL_PLATFORM_WINDOWS
  * UTIL_PLATFORM_UNKNOWN
  */
-#if defined(__APPLE__) && defined(__MACOS__)
+#if defined(__APPLE__) && defined(__MACH__)
 #  define UTIL_PLATFORM_DARWIN
 #elif defined(__gnu_linux__)
 #  define UTIL_PLATFORM_LINUX
@@ -21,7 +21,7 @@
 #elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
 #  define UTIL_PLATFORM_WINDOWS
 #else
-#  warning "Unknown platform"
+#  warning "util: Unknown platform"
 #  define UTIL_PLATFORM_UNKNOWN
 #endif
 
@@ -45,7 +45,7 @@
 #elif defined(_MSC_VER)
 #  define UTIL_COMPILER_MSVCC
 #else
-#  warning unknown compiler
+#  warning "util: Unknown compiler"
 #  define UTIL_COMPILER_UNKNOWN
 #endif
 

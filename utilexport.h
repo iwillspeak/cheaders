@@ -28,7 +28,7 @@
 #  else
 #    define api_export __declspec(dllimport)
 #  endif
-#elif UTIL_COMPILER_GCCLIKE
+#elif defined(UTIL_COMPILER_GCCLIKE)
 /* clang or gcc or something like it, so use the attribute syntaxt */
 #  define api_export    __attribute__((visibility("default")))
 #  define library_local __attribute__((visibility("hidden")))
